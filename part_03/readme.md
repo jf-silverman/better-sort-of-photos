@@ -1,25 +1,32 @@
-# Part 3
+# Capstone Project Part 3 
+## Yelp Photos:  The Good, The Bad, and the Blurry
 
-## Overview
-
-Progress report (in the form of your answers to the questions below) due **EOD on Thursday 2/10**.
-
-The finish line is in sight! You should have your data in hand and some models made. This portion of the Capstone contains two parts to help really hone your model and develop mastery over your final project.
-
-*Goal*: A progress report (answers to the questions below + updated GitHub repo) on your project and a detailed 1:1 (optional) with one of your instructors. If you would like to schedule a 1:1, please reach out to the instructor you would like to meet with to schedule.
-
----
-
-## Requirements
-
-The actual deliverable for this section is fairly small. You are expected to submit your responses to the questions below as a progress report detailing where you are with your Capstone. You will also include a link to your updated GitHub repository including visual and statistical analysis. In your report, you will provide detailed answers to the following questions:
+**Project Update**
 
 1. Do you have data fully in hand and if not, what blockers are you facing?
+
+    Yes, I have an initial dataset of 1000 labeled images (2 classes).  It's possible I may need more data, but I can gain more using the same process or I can label existing photos from another set I have in hand.
+
 2. Have you done full EDA on all of your data?
+
+    I have only reviewed all the photos visually to see if the label is right.  I'm not sure what other EDA is appropriate here.  Maybe composite exposure and color histograms of each class?  
+
 3. Have you begun the modeling process? How accurate are your predictions so far?
+
+    I made one initial model with 50/50 of each class that yielded 70% accuracy.
+
 4. What blockers are you facing, including processing power, data acquisition, modeling difficulties, data cleaning, etc.? How can we help you overcome those challenges?
+
+    Just wondering what might be the best next step.  EDA, use a pretrained keras classifier, try adjusting my hyperparameters, try a different model technique?
+
+
 5. What is your timeline for this week? What do you _have_ to get done versus what would you _like_ to get done?
+
+    I need to get some more EDA done and try a few more models to get a sense for how easy / hard in might be to improve the performance.
+
 6. Are you planning to reach out to schedule another capstone check-in with an instructor this week? If "yes" to the above, what topics do you want to discuss during your 1:1?
 
-We will use your progress report as a leaping off point for your optional 1:1 with a member of the instructional team. The best use of your time is to really flesh out your progress report so that your remaining time here can be most productive.
+    Yes.  I'd like ideas on EDA, model types / adjustment advise.  Thoughts on narrowing the class definitions to focus on more specific cases vs. continuing with same classes.  Thoughts on way to present results.
+
+
 

@@ -1,91 +1,66 @@
-# Part 2: Problem Statement and Dataset
+# Capstone Project Part 2 
+## Yelp Photos:  The Good, The Bad, and the Blurry 
 
-## Overview
+**Problem Statement**
 
-In this section you will update us on your project, including the project you have chosen, your problem statement, the goal of your predictive model, and the data you will use to explore that model.
+Given the influence of images on consumer decisions, it's surprising how many restaurants still have a slough of dark, blurry, unappetizing photos immediately visible in the gallery that opens with the "see photos" button at the top of their Yelp page.  I imagine, like me, many other Yelp users largely make decisions on what restaurant to try based on the first images they see of the food.  Currently on Yelp, it appears businesses can sort the photo gallery, so why do so many bad and blurry photos persist?  My assumption is that it takes human time plus some basic knowledge of the principles of photography to do these things.  In this project I train a model to classify food photos as good or bad using photographic first principles.  The result is expected to be a model that can classify Mexican food photos into "post-worthy" and "not so great" so that Yelp (or the restaurant owner) can automatically sort and/or filter their photo galleries in a way that puts their best photos on top. 
 
-**Your data must be fully in hand by this point OR you must have a solid, achievable plan to do so that has been communicated to your local instructor.**
+**Methods**
 
-## Requirements
+*Data Selection & Pre-processing*
 
-We expect a formatted and complete Jupyter Notebook by end of class the due date, which accomplishes the following:
+The primary dataset will be a set of 1000 Yelp food photos that I manually select, download, and classify into "good" and "bad" categories myself.  In order to limit variation in the model, I selected only photos of Mexican food.  Below I outline the criteria I used for my manual qualitative classification, which adheres to basic photographic principles.  While my manual classification will be somewhat subjective, these principles are well-established and I believe most people would generally agree with them (see below).   
 
-- Identifies which of the three proposals you outlined in your lightning talk you have chosen
-- Articulates the main goal of your project (your problem statement)
-- Outlines your proposed methods and models
-- Defines the risks & assumptions of your data
-- Revises initial goals & success criteria, as needed
-- Documents your data source
+I used an image downloading extension in my browser to classify and download the photos.  To start, I collected, 500 "good" and 500 "bad" photos to use to train and test. 
 
-## Formulating your Problem Statement
+Images may need to be resized and transformed into array form for analysis in a CNN.
 
-Your problem statement should the guiding principle for your project.  You can think about this as a "SMART" goal.
+- Photographic Principles
+    
+    - Focus:  Photo should be in focus everywhere, or at least on the "subject" of the photo, such as the plate of food, or a shrimp within the dish.  Bokeh blur in the background that makes the food stand out is very good. Blurry focus over the subject or entire image is very bad.
 
-- Specific:
-  - What precisely do you plan to do?
-  - What type of model will you need to develop?
-- Measurable:
-  - What metrics will you be using to assess performance?
-  - MSE? Accuracy? Precision? AUC?
-- Achievable:
-  - Is your project appropriately scoped?
-  - Is it too aggressive?  Too easy?
-  - *Note:* If your project is too big, break it up into smaller pieces.  Sometimes a good project is the simply one part of a larger, longer-term agenda.
-- Relevant:
-  - Does anyone care about this?
-  - Why should people be interested in your results?
-  - What value will the completion of your project be adding?
-- Time-bound
-  - What's your deadline?
+    - Exposure:  Exposure should be even over the subject (food) without harsh shadows.  Extreme exposure (white or black) in any part of the photo is generally bad.
 
----
+    - Subject:  Subject should just be the food, either centered or filling the visual frame.   Subject should not include half-eaten items, wrapped food, or any human body parts in focus.
 
-- **BAD**: I will model emergency room visits.
-- **GOOD**: I will build a regression model to predict the number of daily emergency room visits for St. Someone's Hospital.  Model performance will be guided by RMSE, and the model should at least improve upon baseline by 10%.  Baseline is defined as the monthly average of visits over the last 10 years.
+    - Color:  Photos should either have a variety of complimentary or contrasting colors or have a simplified color set is ok if it's not primarily brown. 
 
----
+    - Warth/Tint:  Generally food photos should be balanced to slightly warm (yellows and reds), as opposed to cold (blues and greens).  Exceptions include the color of the non-food background.
 
-- **BAD**: I will investigate the aftermarket pricing of sneakers.
-- **GOOD**: Specific image and text features of sports sneakers are predictive of determining whether they will sell for more or less in the aftermarket.  The guiding metric will be area under the ROC curve.
+    - Saturation:  Color saturation should be normal to bright, but not extremely strong (no neon colors).
 
----
+**Modeling**
 
-- **BAD**: I will explore the link between obesity and blood pressure.
-- **GOOD**: I will quantify the association between obesity and blood pressure through regression modeling.
-- **BETTER**: As obesity increases, how does blood pressure change?
----
+For a modeling technique, I will try a convolutional neural net, first without a pre-trainer, then with a publicly-available Tensorflow-Keras imagenet module such as Xception.  I will explore model adjustments such as number of hidden layers, batch_size, epochs number, early stopping, dropout, and regularization to improve model performance.  
 
-- **BAD**: I will predict that sources of news are liberal or conservative.
-- **GOOD**:  I will look at text features to understand how news can be classified as liberal or conservative.
-- **BETTER**: Specific text feature frequencies can determine the broader category of news sources using classification.  I will describe what makes each class charactitaristically unique, describe what is both certain and uncertain using precision and recall as success metrics.  Then I will conclude with a description of "why" my model describes potential to predict these two categories.
+**Evaluation**
 
----
+Performance will be measured using accuracy and confusion matrices.  Correctly identifying the worst photos may turn out to be preferred over a model that predicts both classes moderately well.  I will aim for an accuracy of at least 70%, with a sensitivity score above 75% (where class 1 is the "good photo" set) preferentially identify the worst photos (for filtering out or pushing to the bottom of the sort). I will post images with my classification ("good" or "bad") plus the model prediction label in the project portfolio.
 
-## Data Guidelines
+**Relevance**
 
-What should you thinking about and looking for as you collect your capstone data?
+Why should anyone care about this project?  Restaurant review platforms and restaurant owners need to attract customers online and compelling, attractive food photographs are a large part of many customers selection process.  An automated method for sorting or filtering "good" quality photos from "bad" photos should help restaurants highlight their best food photos and attract more customers.  This information could also be used to give users feedback on the photos they upload and be used to give incentives to users who post higher quality photos. More generally, automatically identifying high-quality user-generated photos of a businesses' product amongst a sea of photos is useful to attract customers.
 
-- Source and format your data
-  - Have a way to save data locally (e.g., SQL or CSV), especially if scraping from the web or collecting from an API.
-  - Create a data dictionary to accompany your data.
-- Perform initial cleaning and munging.
-  - Organize your data relevant to your project goals.
-  - Write functions to automatically clean and munge data as necessary.
-  - Take copious notes, for both others and yourself, describing your assumptions and approach.
+**Data**
 
-## Necessary Deliverables / Submission
+- Source:  Photos publicly available on Yelp
+- Format:  Initially saving data to local hard drive and saving as .jpg files.
+- Data Dictionary (none yet)
 
- Materials must be presented in a Jupyter Notebook stored within a repository on your personal (*not* GA) GitHub. Please submit a link to this repository to your local instructor by the due date.
+**Roadmap**
 
-### BONUS
+- Initiail project ideas - early Feb 1
+    - Originally conceived of classifying good food & bad food photos on Yelp.         
+- Select or create a dataset that fits project objectives - Feb 5
+     - I initially thought of using an existing dataset from Kaggle or directly through Yelp's API.  Although there was a dataset available from Yelp for research and I obtained an API key and made some initial pulls, neither method provided the dataset I needed.  I needed to manually review and label photos, which ended up being easier using an image download extension through my browser.    
+- Complete data selection / labeling - Feb 12
+    - Completed download and labeling 500 of each class.
+- Compete Part 2 of Capstone - Feb 12
+    - Completed this readme.  
+- Process photos & perform EDA - iterate through Feb 20
+    - Review composite histagrams of the entire data and of each class. Look over all photos just to see that they are labeled right.     
+- Model runs - iterate through Feb 20
+- Refine/increase/augment data - iterate through Feb 20
+- Write up results & result visuals.  Feb 24
+- Build streamlit Feb 28
 
-- Create roadmap of your project with milestones.
-- Conduct initial EDA on your data.
-- Write a blog post on what you learned from your EDA.
-
-## Useful Resources
-
-- [Best practices for data documentation](https://www.dataone.org/all-best-practices)
-- [Describing data visually](http://www.statisticsviews.com/details/feature/6314441/Visualising-Statistics-The-importance-of-seeing-not-just-describing-data.html)
-- [WSJ Guide to Information Graphics (book)](https://www.amazon.com/Street-Journal-Guide-Information-Graphics/dp/0393347281)
-- [Storytelling with Data (book)](https://www.amazon.com/Storytelling-Data-Visualization-Business-Professionals/dp/1119002257/)
