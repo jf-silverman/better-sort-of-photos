@@ -1,0 +1,2 @@
+# well-lit-tacos
+Why are a lot of the photos at the top of a restaurant's Yelp gallery still so bad?  In this project I use photography 101 principles to classify a set of Mexican food photographs in to "good" and "bad".  I then train a convolutional neural network (CNN) to predict if a given photo should be bumped to the top of the gallery or pushed to the bottom of the gallery.   This model could be used by review platforms or restaurant owners to automatically put the best photos up top.
