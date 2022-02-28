@@ -1,15 +1,32 @@
-# classy food
-Why are a lot of the photos at the top of a restaurant's Yelp gallery still so bad?  In this project I use photography 101 principles to classify a set of Mexican food photographs in to "good" and "bad".  I then train a convolutional neural network (CNN) to predict if a given photo should be bumped to the top of the gallery or pushed to the bottom of the gallery.   This model could be used by review platforms or restaurant owners to automatically put the best photos up top.
+# Capstone Project Part 3 
+## Yelp Photos:  The Good, The Bad, and the Blurry
 
-# Executive Summary
-test
+**Project Update**
 
-# Problem Statement
+1. Do you have data fully in hand and if not, what blockers are you facing?
 
-# Background
+    Yes, I have an initial dataset of 1000 labeled images (2 classes).  It's possible I may need more data, but I can gain more using the same process or I can label existing photos from another set I have in hand.
 
-** How Photos Are Currently Sorted on Yelp
-How can I change which photos of my business appear first?
-The order in which photos appear on a business page (including the main photo) is determined by different factors, such as votes from the community and how recently the photo was taken. We also automatically disperse any available videos of the business throughout the photos. You're welcome to add additional photos to your business page, but we don't offer the ability to re-order photos with a free business account.
+2. Have you done full EDA on all of your data?
 
-However, we do offer advertising packages that enable you to set the order of your photos in a slideshow (but currently videos are still automatically dispersed throughout your ordering). If you're interested in an advertising program, please contact our Sales team.
+    I have only reviewed all the photos visually to see if the label is right.  I'm not sure what other EDA is appropriate here.  Maybe composite exposure and color histograms of each class?  
+
+3. Have you begun the modeling process? How accurate are your predictions so far?
+
+    I made one initial model with 50/50 of each class that yielded 70% accuracy.
+
+4. What blockers are you facing, including processing power, data acquisition, modeling difficulties, data cleaning, etc.? How can we help you overcome those challenges?
+
+    Just wondering what might be the best next step.  EDA, use a pretrained keras classifier, try adjusting my hyperparameters, try a different model technique?
+
+
+5. What is your timeline for this week? What do you _have_ to get done versus what would you _like_ to get done?
+
+    I need to get some more EDA done and try a few more models to get a sense for how easy / hard in might be to improve the performance.
+
+6. Are you planning to reach out to schedule another capstone check-in with an instructor this week? If "yes" to the above, what topics do you want to discuss during your 1:1?
+
+    Yes.  I'd like ideas on EDA, model types / adjustment advise.  Thoughts on narrowing the class definitions to focus on more specific cases vs. continuing with same classes.  Thoughts on way to present results.
+
+
+
