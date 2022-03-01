@@ -65,12 +65,21 @@ Why should anyone care about this project?  Restaurant review platforms and rest
 
 
 ## Notebooks
-[api_functions.ipynb](/code/xyz): Notebook
+[02-CNN_Model_wo_Transfer_Learning.ipynb](/code/02-CNN_Model_wo_Transfer_Learning.ipynb): Notebook
 
 
+## Python Libraries Used
+import os
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.decomposition import PCA
+from math import ceil
+from tensorflow.keras.preprocessing import image
 
 
-**Data**
+## Data
 
 
 - Format:  Initially saving data to local hard drive and saving as .jpg files.
