@@ -43,11 +43,7 @@ Images may need to be resized and transformed into array form for analysis in a 
 
 - Subject:  Subject should just be the food, either centered or filling the visual frame.   Subject should not include half-eaten items, wrapped food, or any human body parts in focus.
 
-- Color:  Photos should either have a variety of complimentary or contrasting colors or have a simplified color set is ok if it's not primarily brown. 
-
-- Warth/Tint:  Generally food photos should be balanced to slightly warm (yellows and reds), as opposed to cold (blues and greens).  Exceptions include the color of the non-food background.
-
- - Saturation:  Color saturation should be normal to bright, but not extremely strong (no neon colors).
+- Color:  Photos should either have a variety of complimentary or contrasting colors or have a simplified color set is ok if it's not primarily brown. Generally food photos should be balanced to slightly warm (yellows and reds), as opposed to cold (blues and greens).  Exceptions include the color of the non-food background.  Color saturation should be normal to bright, but not extremely strong (no neon colors).
 
 ## Modeling
 
