@@ -4,68 +4,60 @@ _Joel Silverman_
 
 ## Problem Statement
 
-Given the influence of photos on consumer decisions, it's surprising how many restaurants still have a slough of dark, blurry, unappetizing photos immediately visible in their main photo gallery linked at the top of their Yelp page.  Yelp app users, restaurant owners, and Yelp itself would all benefit from having an option to automatically sort restaurant photo galleries in a way that would place well taken shots on top.  Currently on Yelp, businesses who have an advertising account can sort their photo gallery, so why do so many bad and blurry photos persist?  Probably because it takes an owner's valuable time, plus requires knowledge of photographic principles to do these things.  In this project I manually label a set of photos using photography principles, then trained a machine learning model to classify food photos as either "post-worthy" or "not so great" so that Yelp (or the restaurant owner or the app user) can automatically sort their photo galleries in a better way.  
+The simple inclusion of images with a social media post increases engagement on social networks[1] and since  the start of covid, the use of social media in decision making has gained in importance[2]. Even before covid, a 2018 study found that 30% of the participants used review apps to find new restaurants, referal source second only to family and friends[3]. Given the influence of photos on consumer decisions, it's surprising how many restaurants still have a slough of dark, blurry, unappetizing photos immediately visible in their main photo gallery linked at the top of their Yelp page.  Yelp app users, restaurant owners, and Yelp itself would all benefit from having an option to automatically sort restaurant photo galleries in a way that would place well-taken shots on top.  Currently on Yelp, businesses who have an advertising account can sort their photo gallery, so why do so many poorly taken photos persist?  Probably because it takes an owner's valuable time to sort random customer photos, plus it requires some knowledge of photographic principles.  In this project I manually label a set of photos using photography principles, then train a machine learning model to classify food photos as either "post-worthy" or "not so great" so that Yelp (or the restaurant owner or the app user) can automatically sort their photo galleries in a better way.  
 
 ## Background
 
-We all know the inclusion of an image with a social media post increases engagement on social networks[1] and since  the start of covid the use of social media in decision making has gained in importance[2]. Even before covid, a small independent study in 2018 found that 30% of the participants used review apps to find new restaurants, a source only second to family and friends[3].
+Despite a slough of options in the space (Google Reviews, Open Table), Yelp remains a dominant player among review plantforms.  Established in 2004, Yelp continues to grow, even surpassing its  pre-covid revenue levels in 2021 (just over $1 Billion).  Yelp boasts 100 million unique monthly users spread fairly evenly across age groups. About 45% of their customers say they consult Yelp before making purchases and over half are college-educated[4].  The business also claims 250 million user reviews and 5.8 million claimed businesses[5]. For all these reasons, I chose Yelp for my focus although the project could well be generalized for many other use cases. 
 
-While there are a slough of competitors in the space (Google Reviews, Instagram, Open Table), Yelp is well established and continues to grow it's revenue is already above pre-covid levels at just over $1 B in 2021.
-More about Yelp: Founded in 2004
-100 M unique monthly users
-45% of their customers say they consult Yelp before buying 
-It’s demographics are evenly distributed but over 1/2 are college educated (profitable segment).  https://seattleppcagency.com/marketing/is-yelp-still-relevant-in-2021/ 
+I chose this project because it combines my interest in digital photography with my love of trying new restaurants.  It also was an interesting topic because I use Yelp and I thought this is something that would improve the site and app experience for users like me.  
 
-yelp ir https://www.yelp-ir.com/ $2.5 B market cap, 
-5.8 million claimed businesses, 1/4  billion reviews. Is this photo sorting specific to Yelp? No.  It could easily be said about Google Reviews and probably others. 
-
-scales image: https://en.m.wikipedia.org/wiki/File:Johnny-automatic-scales-of-justice.svg 
-
-I chose this project because it combines my passion for digital photography and as well as my love of trying new restaurants.  It also was an interesting topic because I use Yelp and I thought this is something that would improve the user interface.  
-
-
-**Sources Cited: 
+**Sources Cited:** 
 1. https://journals.sagepub.com/doi/pdf/10.1177/0022243719881113 
 2. https://www.tandfonline.com/doi/full/10.1080/23311975.2020.1870797
 3. https://www.restaurantbusinessonline.com/marketing/does-instagram-influence-where-customers-dine-out
+4. https://seattleppcagency.com/marketing/is-yelp-still-relevant-in-2021/ 
+5. https://www.yelp-ir.com/
 
 ## Methods
 
 **Data Selection & Pre-processing**
 
-The primary dataset will be a set of 1000 Yelp food photos that I manually select, download, and classify into "good" and "bad" categories myself.  In order to limit variation in the model, I selected only photos of Mexican food.  Below I outline the criteria I used for my manual qualitative classification, which adheres to basic photographic principles.  While my manual classification will be somewhat subjective, these principles are well-established and I believe most people would generally agree with them (see below).   
+Initially, I considered gathering data via Yelp's API or by utilizing a research set the company made available, but no photo quality parameters were available. Instead I downloaded 1400 photos from restaurant pages using a Chrome extension and manually labeled them as either "good" or "bad" quality photos. (see label criteria in next section). Photos were organized in specific subfolders to simplify loading for visualization and modeling.  In order to limit variation among types of food in this small dataset, I limited selection to only photos of food from Mexican restaurants (food which I love!).  All images were in 1x1 ratio to avoid cropping and sizes were limited to a range of 256x256 to 348x348.  These supplied plenty of detail, while keep computation light.
 
-I used an image downloading extension in my browser to classify and download the photos.  To start, I collected, 500 "good" and 500 "bad" photos to use to train and test. 
+**Label Criteria Using Basic Photographic Principles**  
+While these manual labels are somewhat subjective, the underlying principles are well-established.
 
-Images may need to be resized and transformed into array form for analysis in a CNN.
+- **Focus:**  Photo should be in focus everywhere, or at least on the "subject" of the photo, such as the plate of food, or a shrimp within the dish.  Background can be blurred (bokeh) or not as long as the food can be seen clearly and the background is not too distracting.
 
-**Photographic Principles**
-    
-- Focus:  Photo should be in focus everywhere, or at least on the "subject" of the photo, such as the plate of food, or a shrimp within the dish.  Bokeh blur in the background that makes the food stand out is very good. Blurry focus over the subject or entire image is very bad.
+- **Exposure:**  Exposure should be even over the subject (food) without harsh shadows or bright patches.  Even, diffuse light is best.
 
-- Exposure:  Exposure should be even over the subject (food) without harsh shadows.  Extreme exposure (white or black) in any part of the photo is generally bad.
+- **Subject:**  Subject should just be the food, either centered or filling the visual frame.   Subject should not include half-eaten items, wrapped food, or any human body parts in focus.
 
-- Subject:  Subject should just be the food, either centered or filling the visual frame.   Subject should not include half-eaten items, wrapped food, or any human body parts in focus.
+- **Color:**  Photos should either have a variety of complimentary or contrasting colors.  Generally a whole plate should not be one color such as brown. Generally food photos should be balanced to slightly warm (yellows and reds), as opposed to cold (blues and greens).  Exceptions include the color of the non-food background or green vegetables.  Color saturation should be normal to bright, but not extremely strong.
 
-- Color:  Photos should either have a variety of complimentary or contrasting colors or have a simplified color set is ok if it's not primarily brown. Generally food photos should be balanced to slightly warm (yellows and reds), as opposed to cold (blues and greens).  Exceptions include the color of the non-food background.  Color saturation should be normal to bright, but not extremely strong (no neon colors).
+- **Pattern/Composition:**
+A number of photographic rules make for appealing compositions (rule of thirds, rule of odds, golden ratio, etc.).  I also ruled out photos of half-eaten food or empty plates in this category 
+
+## Visualization
+I first loaded the photo dataset into Python using Tensorflow / Keras libraries.  First I looked at random batches of labeled images to ensure they were labeled and loaded properly.  Next I made a composite mean image of all the "good" label and a composite mean image of all the "bad" label photos. I reviewed these both in color and greyscale.  The greyscale image was converted to one of Matplotlib's "perceptually uniform sequential colormaps" to more easily discern difference.  I also created histograms of the two composite images, showing the red, green, and blue pixels as separate transparencies.  After this I made a contrast image by subtracting the two composite mean images.  Lastly, I used Principle Component Analysis to examine eigen composite images and high eigen value images. All of the visualizations pointed to the importance of proper exposure and some level of framing / composition.   
 
 ## Modeling
 
-For a modeling technique, I will try a convolutional neural net, first without a pre-trainer, then with a publicly-available Tensorflow-Keras imagenet module such as Xception.  I will explore model adjustments such as number of hidden layers, batch_size, epochs number, early stopping, dropout, and regularization to improve model performance.  
+For a modeling technique, I used a convolutional neural net, first making two models trained from scratch (model 1 and model 2), then making two models that used transfer-learning techniques (model 3 and model 4.  Model 1 just used basic CNN convolution and pooling layers.  This model achieved about 76% accuracy in the validation set after 10 epochs.  Model 2 added in model augementation and dropout to add variability and reduce model overfitting, achieving 82% accuracy in the validation set after 10 epochs.  Model 3 used transfer learning from MobileNet V2, a CNN trained on over 1.4 million images, fit to 1000 classes by Google.  The first technique, feature selection, removes the head the pre-trained model and allows final learning the new dataset.  This model (Model 3) achieved 73% accuracy after 20 epochs.  The last model was a fine-tuning transfer learning model that built on the previous model, by unfreezing more layers in the pre-trained model to exposed them to new learning from the new dataset.  This model (Model 4) achieved 83% accuracy after 20 epochs.  The percentages of accuracy and loss vary slightly each time they are run due to random effects.  
 
-## Evaluation
+## Evaluation, Conclusions and Recommendations
 
-Performance will be measured using accuracy and confusion matrices.  Correctly identifying the worst photos may turn out to be preferred over a model that predicts both classes moderately well.  I will aim for an accuracy of at least 70%, with a sensitivity score above 75% (where class 1 is the "good photo" set) preferentially identify the worst photos (for filtering out or pushing to the bottom of the sort). I will post images with my classification ("good" or "bad") plus the model prediction label in the project portfolio.
+Both methods of CNN (from scratch and transfer learning) achieved similar, moderate levels of performance.  These could probably be further improved through experimenting with the various parameters or layering architecture.  Part of the difficulty stems from the subjective and generalized nature of the labels, even with specific criteria.  It was interesting to note that both types of CNN performed similarly on these data.  In retrospect, it would have been better to limit photos to more similar-shaped items.  Also, it would be good to explore CNN architecture that is specific for color variation detection as opposed to shape.  
 
-## Relevance
-
-Why should anyone care about this project?  Restaurant review platforms and restaurant owners need to attract customers online and compelling, attractive food photographs are a large part of many customers selection process.  An automated method for sorting or filtering "good" quality photos from "bad" photos should help restaurants highlight their best food photos and attract more customers.  This information could also be used to give users feedback on the photos they upload and be used to give incentives to users who post higher quality photos. More generally, automatically identifying high-quality user-generated photos of a businesses' product amongst a sea of photos is useful to attract customers.
-
-## Conclusions and Recommendations
 
 
 ## Notebooks
-[02-CNN_Model_wo_Transfer_Learning.ipynb](/code/02-CNN_Model_wo_Transfer_Learning.ipynb): Notebook
+capstone/classy-food/code/01-Visualizations_Notebook.ipynb
+
+capstone/classy-food/code/02_CNN_Model_wo_Transfer_Learning.ipynb
+
+capstone/classy-food/code/03_CNN_Model_w_Transfer_Learning_v4.ipynb
 
 
 ## Python Libraries Used
@@ -78,17 +70,9 @@ from sklearn.decomposition import PCA
 from math import ceil
 from tensorflow.keras.preprocessing import image
 
-
-## Data
-
-
-- Format:  Initially saving data to local hard drive and saving as .jpg files.
-- Data Dictionary (none yet)
-
-
 ## Datasets
 - Source:  Photos publicly available on Yelp
-- Storage: github
+capstone/classy-food/data/yelp_set3.zip
 
 [yelp_set3.zip]('data/yelp_set3.zip'): Folder of jpg image files downloaded from publicly available Yelp photo galleries.
 
