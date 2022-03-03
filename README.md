@@ -23,7 +23,11 @@ I chose this project because it combines my interest in digital photography with
 
 **Data Selection & Pre-processing**
 
-Initially, I considered gathering data via Yelp's API or by utilizing a research set the company made available, but no photo quality parameters were available. Instead I downloaded 1400 photos from restaurant pages using a Chrome extension and manually labeled them as either "good" or "bad" quality photos. (see label criteria in next section). Photos were organized in specific subfolders to simplify loading for visualization and modeling.  In order to limit variation among types of food in this small dataset, I limited selection to only photos of food from Mexican restaurants (food which I love!).  All images were in 1x1 ratio to avoid cropping and sizes were limited to a range of 256x256 to 348x348.  These supplied plenty of detail, while keep computation light.
+Initially, I considered gathering data via Yelp's API or by utilizing a research set the company made available, but no photo quality parameters were available. Instead I downloaded 1400 photos from restaurant pages using a Chrome extension and manually labeled them as either "good" or "bad" quality photos. (see label criteria in next section). Photos were organized in specific subfolders to simplify loading for visualization and modeling.  In order to limit variation among types of food in this small dataset, I limited selection to photos from Mexican restaurants.  All images were in 1x1 ratio to avoid cropping and sizes were limited to a range of 256x256 to 348x348.  These supplied plenty of detail, while keeping computational work load light.
+
+**Data cleaning**
+
+Data cleaning was done by looking at icon views of the photos in a MacOS Finder window.  Any mislabled photos were corrected.  A few photos with text or emojis overlays were removed.  
 
 **Label Criteria Using Basic Photographic Principles**  
 While these manual labels are somewhat subjective, the underlying principles are well-established.
@@ -40,7 +44,7 @@ While these manual labels are somewhat subjective, the underlying principles are
 A number of photographic rules make for appealing compositions (rule of thirds, rule of odds, golden ratio, etc.).  I also ruled out photos of half-eaten food or empty plates in this category 
 
 ## Visualization
-I first loaded the photo dataset into Python using Tensorflow / Keras libraries.  First I looked at random batches of labeled images to ensure they were labeled and loaded properly.  Next I made a composite mean image of all the "good" label and a composite mean image of all the "bad" label photos. I reviewed these both in color and greyscale.  The greyscale image was converted to one of Matplotlib's "perceptually uniform sequential colormaps" to more easily discern difference.  I also created histograms of the two composite images, showing the red, green, and blue pixels as separate transparencies.  After this I made a contrast image by subtracting the two composite mean images.  Lastly, I used Principle Component Analysis to examine eigen composite images and high eigen value images. All of the visualizations pointed to the importance of proper exposure and some level of framing / composition.   
+I first loaded the photo dataset into Python using Tensorflow / Keras libraries.  I looked at random batches of labeled images to ensure they were labeled and loaded properly.  Next I made a composite mean image of all the "good" label and a composite mean image of all the "bad" label photos. I reviewed these both in color and greyscale.  The greyscale image was converted to one of Matplotlib's "perceptually uniform sequential colormaps" to more easily discern difference.  I also created histograms of the two composite images, showing the red, green, and blue pixels as separate transparencies.  After this I made a contrast image by subtracting the two composite mean images.  Lastly, I used Principle Component Analysis to examine eigen composite images and high eigen value images. All of the visualizations pointed to the importance of proper exposure and some level of framing / composition.   
 
 ## Modeling
 
@@ -49,8 +53,6 @@ For a modeling technique, I used a convolutional neural net, first making two mo
 ## Evaluation, Conclusions and Recommendations
 
 Both methods of CNN (from scratch and transfer learning) achieved similar, moderate levels of performance.  These could probably be further improved through experimenting with the various parameters or layering architecture.  Part of the difficulty stems from the subjective and generalized nature of the labels, even with specific criteria.  It was interesting to note that both types of CNN performed similarly on these data.  In retrospect, it would have been better to limit photos to more similar-shaped items.  Also, it would be good to explore CNN architecture that is specific for color variation detection as opposed to shape.  
-
-
 
 ## Notebooks
 capstone/classy-food/code/01-Visualizations_Notebook.ipynb
@@ -71,12 +73,8 @@ from math import ceil
 from tensorflow.keras.preprocessing import image
 
 ## Datasets
-- Source:  Photos publicly available on Yelp
-capstone/classy-food/data/yelp_set3.zip
 
-[yelp_set3.zip]('data/yelp_set3.zip'): Folder of jpg image files downloaded from publicly available Yelp photo galleries.
+Folder of jpg image files downloaded from publicly available Yelp restaurant photo galleries.  Photos are all in RGB color.  Ratio are all 1:1 (square) with pixel dimensions ranging from 256x256 to 348x348.
 
+Link to dataset:  [yelp_set3.zip]('data/yelp_set3.zip')
 
-|FEATURE|TYPE|DESCRIPTION|
-|---|---|---|
-|**datetime**|*object*|Date an
