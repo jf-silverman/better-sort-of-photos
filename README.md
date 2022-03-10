@@ -4,13 +4,13 @@ _Joel Silverman_
 
 ## Problem Statement
 
-The simple inclusion of images with a social media post increases engagement on social networks[1] and since  the start of covid, the use of social media in decision making has gained in importance[2]. Even before covid, a 2018 study found that 30% of the participants used review apps to find new restaurants, referal source second only to family and friends[3]. Given the influence of photos on consumer decisions, it's surprising how many restaurants still have a slough of dark, blurry, unappetizing photos immediately visible in their main photo gallery linked at the top of their Yelp page.  Yelp app users, restaurant owners, and Yelp itself would all benefit from having an option to automatically sort restaurant photo galleries in a way that would place well-taken shots on top.  Currently on Yelp, businesses who have an advertising account can sort their photo gallery, so why do so many poorly taken photos persist?  Probably because it takes an owner's valuable time to sort random customer photos, plus it requires some knowledge of photographic principles.  In this project I manually label a set of photos using photography principles, then train a machine learning model to classify food photos as either "post-worthy" or "not so great" so that Yelp (or the restaurant owner or the app user) can automatically sort their photo galleries in a better way.  
+Given the influence of photos on consumer decisions, it's surprising how many restaurants still have a slough of dark, blurry, unappetizing photos immediately visible in their main photo gallery linked at the top of their Yelp page.  It's well established that simply including images with a social media post increases engagement on social networks[1] and since the start of COVID, the use of social media in decision making has only increased in importance[2]. Even before covid, the use of review apps to find new restaurants was second only to referals from friends and family[3]. For these reasons, Yelp app users, restaurant owners, and Yelp itself would all benefit from having an option to automatically sort restaurant photo galleries in a way that would place well-taken shots on top.  Currently on Yelp, businesses who have an advertising account can sort their photo gallery, so why do so many poorly taken photos persist?  Sorting through photos takes an owner's valuable time and selecting quality images requires some knowledge of photographic principles.  In this project I manually label a set of photos using photography principles, then train a machine learning model to classify food photos as either "post-worthy" or "not so great" so that Yelp (or the restaurant owner or the app user) can automatically sort their photo galleries in a better way.  
 
 ## Background
 
 Despite a slough of options in the space (Google Reviews, Open Table), Yelp remains a dominant player among review plantforms.  Established in 2004, Yelp continues to grow, even surpassing its  pre-covid revenue levels in 2021 (just over $1 Billion).  Yelp boasts 100 million unique monthly users spread fairly evenly across age groups. About 45% of their customers say they consult Yelp before making purchases and over half are college-educated[4].  The business also claims 250 million user reviews and 5.8 million claimed businesses[5]. For all these reasons, I chose Yelp for my focus although the project could well be generalized for many other use cases. 
 
-I chose this project because it combines my interest in digital photography with my love of trying new restaurants.  It also was an interesting topic because I use Yelp and I thought this is something that would improve the site and app experience for users like me.  
+I chose this project because it combines my interest in digital photography with my affinity for trying new restaurants.  It also was an interesting topic because I use Yelp and I thought it was something that would improve the site and app experience for users like me.  
 
 **Sources Cited:** 
 1. https://journals.sagepub.com/doi/pdf/10.1177/0022243719881113 
@@ -23,7 +23,7 @@ I chose this project because it combines my interest in digital photography with
 
 **Data Selection & Pre-processing**
 
-Initially, I considered gathering data via Yelp's API or by utilizing a research set the company made available, but no photo quality parameters were available. Instead I downloaded 1400 photos from restaurant pages using a Chrome extension and manually labeled them as either "good" or "bad" quality photos. (see label criteria in next section). Photos were organized in specific subfolders to simplify loading for visualization and modeling.  In order to limit variation among types of food in this small dataset, I limited selection to photos from Mexican restaurants.  All images were in 1x1 ratio to avoid cropping and sizes were limited to a range of 256x256 to 348x348.  These supplied plenty of detail, while keeping computational work load light.
+Initially, I considered gathering data via Yelp's API or by utilizing a research set the company made available, but no photo quality parameters were available. Instead I downloaded 1400 photos from restaurant pages using a Chrome extension and manually labeled them as either "good" or "bad" quality photos. (see label criteria in next section). Photos were organized in specific subfolders to simplify loading for visualization and modeling.  In order to limit variation among types of food in this small dataset, I limited selection to photos from Mexican restaurants.  All images were in 1x1 ratio to avoid cropping and sizes were limited to a range of 256x256 to 348x348.  This size range supplied plenty of detail, while keeping computational work load light.
 
 **Data cleaning**
 
@@ -32,16 +32,16 @@ Data cleaning was done by looking at icon views of the photos in a MacOS Finder 
 **Label Criteria Using Basic Photographic Principles**  
 While these manual labels are somewhat subjective, the underlying principles are well-established.
 
-- **Focus:**  Photo should be in focus everywhere, or at least on the "subject" of the photo, such as the plate of food, or a shrimp within the dish.  Background can be blurred (bokeh) or not as long as the food can be seen clearly and the background is not too distracting.
+- **Focus:**  Photo should be in focus everywhere, or at least on the "subject" of the photo, such as the plate of food, or a shrimp within the dish.  Background could be blurred (bokeh) or not as long as the food could be seen clearly and the background was not too distracting.
 
 - **Exposure:**  Exposure should be even over the subject (food) without harsh shadows or bright patches.  Even, diffuse light is best.
 
-- **Subject:**  Subject should just be the food, either centered or filling the visual frame.   Subject should not include half-eaten items, wrapped food, or any human body parts in focus.
+- **Subject:**  Subject should just be the food, either centered or filling the visual frame.   Subject should not include half-eaten items, wrapped food, or any human body parts in focus (arms, hands, etc.).
 
 - **Color:**  Photos should either have a variety of complimentary or contrasting colors.  Generally a whole plate should not be one color such as brown. Generally food photos should be balanced to slightly warm (yellows and reds), as opposed to cold (blues and greens).  Exceptions include the color of the non-food background or green vegetables.  Color saturation should be normal to bright, but not extremely strong.
 
 - **Pattern/Composition:**
-A number of photographic rules make for appealing compositions (rule of thirds, rule of odds, golden ratio, etc.).  I also ruled out photos of half-eaten food or empty plates in this category 
+A number of photographic rules make for appealing compositions (rule of thirds, rule of odds, golden ratio, etc.).  I also ruled out photos of half-eaten food or empty plates using this principle. 
 
 ## Visualization
 I first loaded the photo dataset into Python using Tensorflow / Keras libraries.  I looked at random batches of labeled images to ensure they were labeled and loaded properly.  Next I made a composite mean image of all the "good" label and a composite mean image of all the "bad" label photos. I reviewed these both in color and greyscale.  The greyscale image was converted to one of Matplotlib's "perceptually uniform sequential colormaps" to more easily discern difference.  I also created histograms of the two composite images, showing the red, green, and blue pixels as separate transparencies.  After this I made a contrast image by subtracting the two composite mean images.  Lastly, I used Principle Component Analysis to examine eigen composite images and high eigen value images. All of the visualizations pointed to the importance of proper exposure and some level of framing / composition.   
