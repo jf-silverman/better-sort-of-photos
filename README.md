@@ -76,5 +76,6 @@ from tensorflow.keras.preprocessing import image
 
 Folder of jpg image files downloaded from publicly available Yelp restaurant photo galleries.  Photos are all in RGB color.  Ratio are all 1:1 (square) with pixel dimensions ranging from 256x256 to 348x348.
 
-Link to dataset:  [yelp_set3.zip]('data/yelp_set3.zip')
+[yelp_set3.zip](data/yelp_set3.zip)  This is a set of 1412 photos divided into training and validation sets; each subdivided into good/bad photo quality classes.
+[yelp3_test.zip](data/yelp3_test.zip)  This is a set of 100 photos used for testing in some of the models.  It has not been manually classified and was never used for training or validation.
 
