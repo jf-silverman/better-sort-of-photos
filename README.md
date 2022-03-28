@@ -55,11 +55,11 @@ For a modeling technique, I used a convolutional neural net, first making two mo
 Both methods of CNN (from scratch and transfer learning) achieved similar, moderate levels of performance.  These could probably be further improved through experimenting with the various parameters or layering architecture.  Part of the difficulty stems from the subjective and generalized nature of the labels, even with specific criteria.  It was interesting to note that both types of CNN performed similarly on these data.  In retrospect, it would have been better to limit photos to more similar-shaped items.  Also, it would be good to explore CNN architecture that is specific for color variation detection as opposed to shape.  
 
 ## Notebooks
-capstone/classy-food/code/01-Visualizations_Notebook.ipynb
+[01-Visualizations_Notebook.ipynb](code/01-Visualizations_Notebook.ipynb)
 
-capstone/classy-food/code/02_CNN_Model_wo_Transfer_Learning.ipynb
+[02_CNN_Models_from_scratch.ipynb](code/02_CNN_Models_from_scratch.ipynb)
 
-capstone/classy-food/code/03_CNN_Model_w_Transfer_Learning_v4.ipynb
+[03_CNN_Models_w_Transfer_Learning.ipynb](code/03_CNN_Models_w_Transfer_Learning.ipynb)
 
 
 ## Python Libraries Used
