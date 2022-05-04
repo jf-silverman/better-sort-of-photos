@@ -1,5 +1,5 @@
 # A Better Sort of Yelp Photos:  
-#### _Using Photography 101 and Machine Learning to Help Restaurant Owners Automatically Bring the Best to the Top_  
+#### _Using Simple Photography Principles and Machine Learning to Help Restaurant Owners Automatically Bring the Best to the Top_  
 _Joel Silverman_
 
 ## Problem Statement
